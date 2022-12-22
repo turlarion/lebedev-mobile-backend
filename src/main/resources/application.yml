@@ -1,0 +1,21 @@
+server:
+  servlet:
+    context-path: '/api/lebedevs'
+
+spring:
+  datasource:
+    url: 'jdbc:postgresql://localhost:5432/lebedev'
+    username: 'postgres'
+    password: 'postgres'
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 20
+      minimum-idle: 5
+
+
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: create
