@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
+import ru.turlarion.restdatabaseconnector.api.dto.ItemDTO;
 import ru.turlarion.restdatabaseconnector.api.pojos.ModifyItemInfoPojo;
 import ru.turlarion.restdatabaseconnector.api.pojos.NewItemPojo;
 import ru.turlarion.restdatabaseconnector.db.entities.Item;
@@ -78,4 +79,11 @@ public class ItemService {
         return true;
     }
 
+    public List<Item> getItemsByUserId(Integer id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            return null;
+        }
+        return itemRepository.findAllByUser(user.get());
+    }
 }

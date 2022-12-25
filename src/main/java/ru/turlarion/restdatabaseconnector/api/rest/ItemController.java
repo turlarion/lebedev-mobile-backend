@@ -76,4 +76,24 @@ public class ItemController {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Check request body!");
     }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/user/{id}")
+    public List<ItemDTO> getItemsByUserId(@PathVariable Integer id) {
+        List<Item> items = itemService.getItemsByUserId(id);
+        return items == null ?
+            null :
+            items.stream()
+                .map(item ->
+                    ItemDTO.builder()
+                        .item_id(item.getItem_id())
+                        .price(item.getPrice())
+                        .picName(item.getPicName())
+                        .name(item.getName())
+                        .description(item.getDescription())
+                        .date(item.getDate())
+                        .user_id(item.getUser().getUser_id())
+                        .build()
+                )
+                .toList();
+    }
 }
